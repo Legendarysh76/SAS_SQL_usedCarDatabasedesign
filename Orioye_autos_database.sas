@@ -2,285 +2,400 @@
 libname sq "&path/data"; 
 
 
-/* VEHICLES INVENTORY TABLE CREATED */
+/* CUSTOMER TABLE CREATED  */
 
 PROC SQL;
-CREATE TABLE SQ.VEHICLES 
+CREATE TABLE SQ.CUSTOMERS
+   (CUSTOMER_ID NUM,
+    FIRST_NAME VARCHAR(50),
+    LAST_NAME VARCHAR(50),
+    PHONE_NUMBER VARCHAR(12),
+    EMAIL_ADDRESS VARCHAR(50),
+    ADDRESS VARCHAR(50),
+    CITY VARCHAR(50),
+    STATE VARCHAR(2),
+    POSTAL_CODE VARCHAR(5),
+    CONSTRAINT CUSTOMERS_PK PRIMARY KEY(CUSTOMER_ID));
+QUIT;
+
+
+/* INSERT CUSTOMERS DATA IN TO CUSTOMER TABLE */
+
+PROC SQL;
+
+INSERT INTO SQ.CUSTOMERS
+   (CUSTOMER_ID, FIRST_NAME, LAST_NAME, 
+    PHONE_NUMBER, EMAIL_ADDRESS, ADDRESS, 
+    CITY, STATE, POSTAL_CODE)
+    VALUES (30010, "Oluwaseyi", "Orioye",
+            "401-243-4743", "oorioye_7509@email.ric.edu",
+            "36 Sears Avenue, APT 3", "Providence",
+            "RI", "02908")
+            
+    VALUES (30011, "Jason", "Toms",
+            "401-283-4753", "Jasontoms@gmail.com",
+            "990 Doha Avenue", "East Providence",
+            "RI", "02912")
+            
+    VALUES (30012, "Justina", "Efe",
+            "617-243-4743", "Justinaefe@hotmail.com",
+            "82 Smith Avenue", "Providence",
+            "RI", "02902")
+
+    VALUES (30013, "Alexander", "Perez",
+            "431-293-4243", "Alexperez26@outlook.com",
+            "57 Atwells Avenue, APT 1", "Providence",
+            "RI", "02908")
+
+    VALUES (30014, "Sara", "Malik",
+            "381-633-7743", "Saramalik@gmail.com",
+            "1007 Wall Street", "New York",
+            "NY", "10021")
+
+    VALUES (30015, "Vy", "Mai",
+            "907-278-2828", "Vymai@ric.edu",
+            "2773A Westminister Street", "Boston",
+            "MA", "02108")
+
+    VALUES (30016, "Juan", "Olivera",
+            "613-748-3838", "juano283@gmail.com",
+            "734 Boston Road", "Everett",
+            "MA", "02102")
+
+    VALUES (30017, "Macayla", "Orioye",
+            "605-477-4838", "morioye@gmail.com",
+            "36 Sears Avenue, APT 3", "Providence",
+            "RI", "02908")
+
+    VALUES (30018, "Lionel", "Messi",
+            "738-792-3892", "messi289@yahoo.com",
+            "482 lincoln Avenue, APT 2", "Cranston",
+            "RI", "02910")
+
+    VALUES (30019, "Kylan", "Mbappé",
+            "388-848-2838", "Kmbappe278@yahoo.com",
+            "930 Roslindale Drive", "Miami",
+            "FL", "66032")
+
+    VALUES (30020, "Bruno", "Fernandes",
+            "484-293-2929", "Bfernandes@email.ric.edu",
+            "3849B Lekki Circle", "Johnston",
+            "RI", "02202");
+
+QUIT;
+
+
+
+/* VEHICLE TABLE CREATED */
+
+PROC SQL;
+CREATE TABLE SQ.VEHICLE 
    (STOCK_ID NUM,
+    VIN_NUMBER VARCHAR(50),
     YEAR NUM(4),
     MAKE VARCHAR(50),
     MODEL VARCHAR(50),
     TRIM_LEVEL VARCHAR(50),
-    VEHICLE_TYPE VARCHAR(50),
-    COLOR VARCHAR(50),
-    DRIVETRAIN VARCHAR(50),
-    ENGINE VARCHAR(50),
+    POWERTRAIN VARCHAR(50),
     MILEAGE NUM FORMAT = COMMA8.0 ,
-    PRICE_LISTED NUM FORMAT =DOLLAR16.2,
-    DATE_LISTED DATE FORMAT = mmddyy10.,
-    CONSTRAINT VEHICLES_PK PRIMARY KEY (STOCK_ID));
+    COLOR VARCHAR(50),
+    PRICE NUM FORMAT =DOLLAR16.2,
+    CONSTRAINT VEHICLE_PK PRIMARY KEY (STOCK_ID));
 QUIT;
 
 
-
-/* VEHICLES SALES TABLE CREATED */
-
-PROC SQL;
-CREATE TABLE SQ.SALES
-	(SALES_ID NUM,
-	 STOCK_ID NUM,
-	 PRICE_SOLD NUM FORMAT =DOLLAR16.2,
-	 DATE_SOLD DATE FORMAT =mmddyy10.,
-	 CONSTRAINT SALES_PK PRIMARY KEY (SALES_ID),
-  	 CONSTRAINT SALES_STOCK_FK FOREIGN KEY (STOCK_ID) REFERENCES SQ.VEHICLES(STOCK_ID));
-QUIT;
-
-
-
-
-/* INSERT VEHICLE DATA IN TO VEHICLES TABLE */
-
-
+/* INSERT VEHICLE DATA IN TO VEHICLE TABLE */
 
 PROC SQL;
 
-INSERT INTO SQ.VEHICLES
-   (STOCK_ID, YEAR, MAKE, MODEL,
-    TRIM_LEVEL, VEHICLE_TYPE, COLOR, DRIVETRAIN, ENGINE,
-    MILEAGE, PRICE_LISTED, DATE_LISTED)
-    
-    VALUES(1001, 2006,"Lexus", "GS", "300", "Sedan", "Off White"
-           "AWD", "V6", 149000, 6700, '15JAN2021'D)
-    
-    VALUES(1002, 2010,"Toyota", "Camry", "SE", "Sport Sedan", "Metallic Black"
-           "FWD", "V6", 131000, 6900, '15JAN2021'D)
+INSERT INTO SQ.VEHICLE
+   (STOCK_ID, VIN_NUMBER, YEAR, MAKE, MODEL,
+    TRIM_LEVEL, POWERTRAIN, MILEAGE, COLOR, PRICE)
+    VALUES(1301311, "W1KZF8EBXMA959054", 2021,
+           "Mercedes Benz", "E350", "Sport",
+           "4MATIC", 1473, "Sapphire White", 56993 )
+
+    VALUES(1301312, "WDDZF4KB9KA567340", 2019,
+           "Mercedes Benz", "E300", "Sport",
+           "4MATIC", 29611 , "Metallic Silver", 35995 )
            
-    VALUES(1003, 2009,"Lexus", "IS", "250", "Sport Sedan", "Metallic Silver"
-           "AWD", "V6", 109000, 9450, '19FEB2021'D)
-    
-    VALUES(1004, 2007,"Lexus", "IS", "250", "Sport Sedan", "Metallic Black"
-           "AWD", "V6", 120000, 7450, '19FEB2021'D)
-    
-    VALUES(1005, 2009,"BMW", "5 Series" "528i", "Sedan", "Metallic Silver"
-           "XDRIVE", "V6", 110000, 6850, '19FEB2021'D)
-           
-    VALUES(1006, 2011,"Toyota", "Camry",  "SE", "Sport Sedan", "Metallic Silver"
-           "FWD", "V4", 97000, 8695, '22MAR2021'D)
-    
-    VALUES(1007, 2009,"Lexus", "GS", "350", "Sedan", "Metallic Silver"
-           "AWD", "V6", 138000, 9700, '22MAR2021'D)
-           
-    VALUES(1008, 2015,"Mercedes-Benz", "C-class", "C300", "Sport Sedan", "Metallic Black"
-           "4MATIC", "V4 Turbo", 102000, 19500, '22MAR2021'D)
-           
-    VALUES(1009, 2014,"Hyundai", "Sonata",  "SE", "Sport Sedan", "Alpine White"
-           "FWD", "2.0T Turbo V4", 121000, 8495, '09APR2021'D)
-           
-    VALUES(1010, 2011,"Toyota", "Camry",  "SE", "Sport Sedan", "Metallic Black"
-           "FWD", "V4", 130000, 7495, '09APR2021'D)
-           
-    VALUES(1011, 2010,"Mercedes-Benz", "C-Class", "C300", "Sport Sedan", "Metallic Grey"
-           "4MATIC", "V6", 129000, 8495, '14APR2021'D)
-           
-    VALUES(1012, 2012,"Mercedes-Benz", "C-Class", "C300", "Sport Sedan", "Metallic Silver"
-           "4MATIC", "V6", 128000, 10495, '28MAY2021'D)
-           
-    VALUES(1013, 2000,"Lexus", "ES", "300", "Sedan", "White"
-           "FWD", "V6", 192000, 1700, '28JUN2021'D)
-    
-    VALUES(1014, 2011,"Infiniti", "G", "G37xS", "Sport Sedan", "Metallic Black"
-           "X", "V6", 127000, 9495, '14JUL2021'D)
-   
-    VALUES(1015, 2012,"Mercedes-Benz", "C-Class", "C300", "Sport Sedan", "Metallic Blue"
-           "4MATIC", "V6", 127000, 10495, '23JUL2021'D)
-           
-    VALUES(1016, 2012,"Mercedes-Benz", "C-Class", "C300", "Sport Sedan", "Metallic Black"
-           "4MATIC", "V6", 116000, 11495, '02AUG2021'D)
-           
-    VALUES(1017, 2021,"Toyota", "RAV4",  "LE", "Sport SUV", "Metallic Grey"
-           "AWD", "V4", 2000, 30995, '13AUG2021'D)
-           
-    VALUES(1018, 2013,"Mercedes-Benz", "C-Class",  "C300", "Sport Sedan", "Metallic Grey"
-           "4MATIC", "V6", 132000, 11995, '17AUG2021'D)
-           
-    VALUES(1019, 2011,"Lexus", "IS",  "250", "Sport Sedan", "Alpine White"
-           "AWD", "V6", 99000, 12995, '28AUG2021'D)
-    
-    VALUES(1020, 2010,"Mercedes-Benz", "E-Class",  "E550", "Sport Sedan", "Metallic Beige"
-           "4MATIC", "V8 Bi-Turbo", 151000, 11995, '15OCT2021'D)
-           
-    VALUES(1021, 2010,"Mercedes-Benz", "E-Class",  "E350", "Sport Sedan", "Metallic Silver"
-           "4MATIC", "V6", 130000, 11995, '15OCT2021'D)
-           
-    VALUES(1022, 2012,"Mercedes-Benz", "C-Class", "C300", "Sport Sedan", "Metallic Grey"
-           "4MATIC", "V6", 141000, 10995, '15OCT2021'D)
-           
-    VALUES(1023, 2013,"Infiniti", "M",  "M37xS", "Sport Sedan", "Metallic Black"
-           "X", "V6", 149000, 14995, '26DEC2021'D)
-         
-    VALUES(1024, 2007,"Lexus", "ES","350", "Sedan", "White"
-           "FWD", "V6", 142000, 8995, '26DEC2021'D)
-           
-    VALUES(1025, 2011,"Mercedes-Benz", "E-Class","E350", "Sport Sedan", "Metallic Black"
-           "4MATIC", "V6", 120000, 13995, '19FEB2022'D)
-    
-    VALUES(1026, 2011,"Mercedes-Benz", "E-Class","E350", "Sport Sedan", "Metallic White"
-           "4MATIC", "V6", 125000, 12495, '23MAR2022'D)
-           
-    VALUES(1027, 2014,"Hyundai", "Sonata","SE", "Sport Sedan", "Alpine White"
-           "FWD", "2.0T Turbo V4", 119000, 10995, '08APR2022'D)
-             
-    VALUES(1028, 2013,"Mercedes-Benz", "C-Class","C300", "Sport Sedan", "Metallic Black"
-           "4MATIC", "V6", 109000, 15995, '17JUL2022'D)
-                
-    VALUES(1029, 2013,"Mercedes-Benz", "C-Class","C300", "Sport Sedan", "Alpine White"
-           "4MATIC", "V6", 90000, 17395, '08MAY2022'D)
-                
-    VALUES(1030, 2012,"Mercedes-Benz", "E-Class","E350", "Sport Sedan", "Metallic Black"
-           "4MATIC", "V6", 168000, 13495, '17JUL2022'D)
-              
-    VALUES(1031, 2013,"Mercedes-Benz", "C-Class","C300", "Sport Sedan", "Metallic Red"
-           "4MATIC", "V6", 138000, 11795, '06AUG2022'D)
-           
-    VALUES(1032, 2008,"Lexus", "GS","350", "Sedan", "Metallic Grey"
-           "AWD", "V6", 130000, 11995, '17AUG2022'D)
+    VALUES(1301313, "WBSGV0C04MCG16960", 2021,
+           "BMW", "M8", "Gran Coupe",
+           "Xdrive", 12063 , "Black Obsidian", 74772 )
                  
-    VALUES(1033, 2016,"Toyota", "Highlander","XLE", "Sport SUV", "Metallic White"
-           "AWD", "V6", 62000, 32995, '29SEP2022'D)
-              
-    VALUES(1034, 2011,"Mercedes-Benz", "E-Class","E350", "Sport Sedan", "Metallic White"
-           "4MATIC", "V6", 112000, 13995, '07OCT2022'D)
-               
-    VALUES(1035, 2008,"Infiniti", "EX","35", "Sport SUV", "Metallic White"
-           "X", "V6", 130000, 9995, '24OCT2022'D)
-                
-    VALUES(1036, 2011,"Mercedes-Benz", "E-Class","E350", "Sport Sedan", "Metallic White"
-           "4MATIC", "V6", 113000, 14750, '10NOV2022'D)     
+    VALUES(1301314, "JTHF51GF9M5008679", 2021,
+           "Lexus", "LS 500", "F Sport",
+           "AWD", 18106 , "Sapphire White", 56993 )
+
+    VALUES(1301315, "JTJBK1BA8A2009238", 2010,
+           "Lexus", "RX350", "Sport",
+           "AWD", 122473, "Alphine White", 10580 )
            
-    VALUES(1037, 2011,"Lexus", "RX","350", "Sport SUV", "Metallic White"
-           "AWD", "V6", 126000, 14995, '11NOV2022'D)
+    VALUES(1301316, "WU1ARBF13ND013401", 2022,
+           "Audi", "RS Q8", "4.0T",
+           "Quattro", 73, "Metallic Blue", 128950 )
+
+    VALUES(1301317, "2C3CDXEJ1FH820933", 2015,
+           "Dodge", "Charger", "SRT 392",
+           "RWD", 32448, "Matte Black", 39564 )
+
+    VALUES(1301318, "3C6UR5GJ0JG381114", 2018,
+           "Dodge", "RAM 2500", "Laramie Limited Crew Cab",
+           "AWD", 59484, "Metallic Grey", 62839 )
+
+    VALUES(1301319, "1FA6P8SJ0M5501401", 2021,
+           "Ford", "Mustang", "Shelby GT500 Fastback",
+           "RWD", 473, "Metallic Lemon Green", 98494 )
+
+    VALUES(1301320, "WZ1DB0C06NW046963", 2022,
+           "Toyota", "Supra", "A91-CF Edition",
+           "RWD", 5, "Metallic Yellow", 61981)
+
+    VALUES(1301321, "ZHWUT5ZF7MLA17907", 2021,
+           "Lamborghini", "Huracan", "LP 610-4 EVO Spyder",
+           "RWD", 53, "Sapphire White", 300454 )
+
+    VALUES(1301322, "WDDNG9EB6DA525649", 2013,
+           "Mercedes Benz", "S550", "Sport",
+           "4MATIC", 103473, "Metallic Silver", 17230 )
+
+    VALUES(1301323, "WDDUG6EB4JA346158", 2018,
+           "Mercedes Benz", "S450", "Sport",
+           "4MATIC", 33473, "Sapphire White", 46993 )
+
+    VALUES(1301324, "SALWZ2RE0NA219044", 2022,
+           "Land Rover", "Range Rover Sport", "SVR",
+           "AWD", 13, "Sapphire Blue", 149998 )
+
+    VALUES(1301325, "WP0AD2A93JS156136", 2018,
+           "Porsche", "911 Turbo S", "Coupe",
+           "AWD", 2473, "Sapphire Silver", 214900 )
+
+    VALUES(1301326, "SCBCG2ZG0LC075453", 2020,
+           "Bentley", "Continental GT", "First Edition",
+           "AWD", 1173, "Sapphire White", 224656 );
            
-    VALUES(1038, 2012,"Lexus", "RX","350", "Sport SUV", "Metallic Beige"
-           "AWD", "V6", 151000, 14995, '10MAR2023'D)
-           
-    VALUES(1039, 2016,"Acura", "MDX"," ", "Sport SUV", "Metallic Black"
-           "SH-AWD", "V6", 96000, 25495, '10MAR2023'D)
-           
-    VALUES(1040, 2013,"Lexus", "RX","450H", "Sport SUV", "Metallic Silver"
-           "AWD", "Hybrid", 135000, 17995, '10MAR2023'D);
-   
-      
-Quit;
+QUIT;
 
 
-/* INSERT VEHICLE SALES DATA IN TO SALES TABLE */
 
-
+/* SALES TABLE CREATED */
 
 PROC SQL;
-    INSERT INTO SQ.SALES
-    (SALES_ID, STOCK_ID, PRICE_SOLD, DATE_SOLD)
-    
-    vALUES(3011, 1001, 6200, '19JAN2021'D )
+CREATE TABLE SQ.INVOICE
+ (INVOICE_ID NUM,
+  STOCK_ID NUM,
+  CUSTOMER_ID NUM,
+  INVOICE_TYPE VARCHAR(50),
+  AMOUNT_PURCHASED NUM FORMAT = DOLLAR16.2,
+  DISCOUNTED VARCHAR(3),
+  DISCOUNT_PERCENTAGE NUM FORMAT = percent16.2,
+  DATE_PURCHASED DATE FORMAT = mmddyy10.,
+  CONSTRAINT INVOICE_PK PRIMARY KEY (INVOICE_ID),
+  CONSTRAINT INVOICE_STOCK_FK FOREIGN KEY (STOCK_ID) REFERENCES SQ.VEHICLE(STOCK_ID),
+  CONSTRAINT INVOICE_CUST_FK FOREIGN KEY (CUSTOMER_ID) REFERENCES SQ.CUSTOMERS(CUSTOMER_ID));  
+QUIT;
 
-    vALUES(3012, 1002, 6100, '17JAN2021'D )
-    
-    vALUES(3013, 1003, 8800, '22FEB2021'D )
-    
-    vALUES(3014, 1004, 6500, '02MAR2021'D )
-    
-    vALUES(3015, 1005, 6000, '08MAR2021'D )
-    
-    vALUES(3016, 1006, 8500, '30MAR2021'D )
-    
-    vALUES(3017, 1007, 9300, '28MAR2021'D )
-    
-    vALUES(3018, 1008, 18600, '24MAR2021'D )
-    
-    vALUES(3019, 1009, 7800, '19APR2021'D )
-    
-    vALUES(3020, 1010, 6500, '13APR2021'D )
-    
-    vALUES(3021, 1011, 6400, '17APR2021'D )
-    
-    vALUES(3022, 1012, 9500, '05JUN2021'D )
-    
-    vALUES(3023, 1013, 1300, '30JUN2021'D )
-    
-    vALUES(3024, 1014, 8100, '24JUL2021'D )
-    
-    vALUES(3025, 1015, 9500, '30JUL2021'D )
-    
-    vALUES(3026, 1016, 10600, '06AUG2021'D )
-    
-    vALUES(3027, 1017, 30000, '13SEP2021'D )
-    
-    vALUES(3028, 1018, 11000, '20AUG2021'D )
-    
-    vALUES(3029, 1019, 11800, '07SEP2021'D )
-    
-    vALUES(3030, 1020, 11000, '18OCT2021'D )
-    
-    vALUES(3031, 1021, 10500, '25OCT2021'D )
-    
-    vALUES(3032, 1022, 10000, '29OCT2021'D )
-    
-    vALUES(3033, 1023, 13200, '10JAN2022'D )
-    
-    vALUES(3034, 1024, 7900, '12JAN2022'D )
-    
-    vALUES(3035, 1025, 8000, '03APR2022'D )
-    
-    vALUES(3036, 1026, 11500, '30MAR2022'D )
-    
-    vALUES(3037, 1027, 9800, '19APR2022'D )
-    
-    vALUES(3038, 1028, 13500, '21JUL2022'D )
-    
-    vALUES(3039, 1029, 15900, '15MAY2022'D )
-    
-    vALUES(3040, 1030, 8000, '19JUL2022'D )
-    
-    vALUES(3041, 1031, 6200, '19JAN2021'D )
-    
-    vALUES(3042, 1032, 10000, '16AUG2022'D )
-    
-    vALUES(3043, 1033, 30000, '03OCT2022'D )
-    
-    vALUES(3044, 1034, 11500, '27OCT2023'D )
-    
-    vALUES(3045, 1035, 8000, '13NOV2022'D )
-    
-    vALUES(3046, 1036, 11400, '19JAN2023'D )
-    
-    vALUES(3047, 1037, 12000, '13NOV2022'D )
-    
-    vALUES(3048, 1038, 8500, '14MAR2023'D )
-    
-    vALUES(3049, 1039, 21500, '17MAR2023'D );
-    
-    
 
+/* INSERT SALES DATA IN TO SALES TABLE */
+
+PROC SQL;
+
+INSERT INTO SQ.INVOICE
+   (INVOICE_ID, STOCK_ID, CUSTOMER_ID, INVOICE_TYPE,
+    AMOUNT_PURCHASED, DISCOUNTED, DISCOUNT_PERCENTAGE,
+    DATE_PURCHASED)
+    VALUES(72637, 1301311, 30010, "E-invoice",
+           56993, "NO", 0, '11NOV2022'D)
+
+    VALUES(72638, 1301326, 30011, "Paper invoice",
+           208930, "YES", 0.07, '18NOV2022'D)
+           
+    VALUES(72639, 1301325, 30012, "E-invoice",
+           171920, "YES", 0.20, '21NOV2022'D)
+           
+    VALUES(72640, 1301319, 30010, "E-invoice",
+           68945, "YES", 0.30, '18NOV2022'D)
+
+    VALUES(72641, 1301321, 30018, "E-invoice",
+           	300454, "NO", 0, '16NOV2022'D)
+
+    VALUES(72642, 1301312, 30019, "Paper invoice",
+           	35995, "NO", 0, '21NOV2022'D)
+           
+    VALUES(72643, 1301316, 30015, "E-invoice",
+           	128950, "NO", 0, '22NOV2022'D)
+
+    VALUES(72644, 1301314, 30016, "E-invoice",
+           	56993, "NO", 0, '22NOV2022'D)
+
+    VALUES(72645, 1301323, 30017, "Paper invoice",
+           46993, "NO", 0, '20NOV2022'D)
+
+    VALUES(72646, 1301313, 30013, "E-invoice",
+           74772, "NO", 0, '23NOV2022'D)
+
+    VALUES(72647, 1301317, 30019, "E-invoice",
+           	39564, "NO", 0, '23NOV2022'D)
+
+    VALUES(72648, 1301320, 30010, "E-invoice",
+           	61981, "NO", 0, '24NOV2022'D);
+           
 QUIT;
 
 
 
 
 
+/* RESULTS OF ALL DATA IN CUSTOMER TABLE */
+
+TITLE "CUSTOMERS INFORMATION";
+FOOTNOTE "CONFIDENTIAL REPORT BY ALEX & HERNY";  
+PROC SQL NUMBER;
+SELECT * 
+FROM SQ.CUSTOMERS;
+QUIT;
+
+
+/* RESULTS OF ALL DATA IN VEHICLE TABLE */
+TITLE "VEHICLE INVENTORY INFORMATION";
+FOOTNOTE "CONFIDENTIAL REPORT BY ALEX & HERNY";  
+PROC SQL NUMBER;
+SELECT *
+FROM SQ.VEHICLE;
+QUIT;
+
+
+/* RESULTS OF ALL DATA IN INVOICE TABLE */
+TITLE "SALES INFORMATION";
+FOOTNOTE "CONFIDENTIAL REPORT BY ALEX & HERNY"; 
+PROC SQL NUMBER;
+SELECT * 
+FROM SQ.INVOICE;
+QUIT;
+
+
+
+
+/* 1 WHAT CUSTOMERS LIVE IN PROVIDENCE RI*/
+
+TITLE "CUSTOMERS WHO LIVE IN PROVIDENCE RI";
+FOOTNOTE "CONFIDENTIAL REPORT BY ALEX & HERNY";
 PROC SQL NUMBER;
 
 SELECT *
-FROM SQ.VEHICLES;
+FROM SQ.CUSTOMERS
+WHERE CITY = "Providence";
 
 QUIT;
-      
-      
+
+
+/* 2 WHAT VEHICLES ARE OUR HIGHLINE AND EXOTIC UNITS,(VEHICLES ABOVE $100,000) */
+
+TITLE "VEHICLE INVENTORY THAT ARE HIGHLINE AND EXOTICS";
+FOOTNOTE "CONFIDENTIAL REPORT BY ALEX & HERNY";
 PROC SQL NUMBER;
 
 SELECT *
-FROM SQ.SALES;
+FROM SQ.VEHICLE
+WHERE PRICE >= 100000
+ORDER BY PRICE DESC;
 
 QUIT;
-           
-           
-           
+
+
+
+/* 3 WHAT VEHICLES IN OUR INVENTORY IS SOLD. I WANT TO KNOW THE
+     STOCK_ID, VIN_NUMBER, YEAR, MAKE, MODEL, TRIM_LEVEL, POWERTRAIN,
+     MILEAGE, COLOR, PRICE. THEN I WANT TO KNOW THE INVOICE_TYPE, AMOUNT_PURCHASED 
+     AND DATE_PURCHASED */
+
+
+TITLE "VEHICLES SOLD";
+FOOTNOTE "CONFIDENTIAL REPORT BY ALEX & HERNY";  
+PROC SQL NUMBER;
+
+SELECT VEHICLE.STOCK_ID, 
+       VIN_NUMBER, 
+       YEAR, 
+       MAKE, 
+       MODEL, 
+       TRIM_LEVEL, 
+       POWERTRAIN,
+       MILEAGE, 
+       COLOR, 
+       PRICE,
+       INVOICE_TYPE, 
+       AMOUNT_PURCHASED,
+       DATE_PURCHASED
+FROM SQ.VEHICLE INNER JOIN SQ.INVOICE
+     ON VEHICLE.STOCK_ID = INVOICE.STOCK_ID
+ORDER BY DATE_PURCHASED ASC;
+      
+QUIT;
+
+
+
+/* 4 WHAT VEHICLES DID WE GIVE DISCOUNTS TO. */
+
+TITLE "VEHICLES DISCOUNTED";
+FOOTNOTE "CONFIDENTIAL REPORT BY ALEX & HERNY";  
+PROC SQL NUMBER;
+
+SELECT VEHICLE.STOCK_ID, 
+       VIN_NUMBER, 
+       YEAR, 
+       MAKE, 
+       MODEL, 
+       TRIM_LEVEL, 
+       POWERTRAIN,
+       MILEAGE, 
+       COLOR, 
+       PRICE, 
+       DISCOUNT_PERCENTAGE,	
+       AMOUNT_PURCHASED,
+       DATE_PURCHASED
+FROM SQ.VEHICLE INNER JOIN SQ.INVOICE
+     ON VEHICLE.STOCK_ID = INVOICE.STOCK_ID
+WHERE DISCOUNTED = "YES"
+ORDER BY DATE_PURCHASED ASC;
+      
+QUIT;
+
+
+
+
+/* 5 WHAT CUSTOMERS BOUGHT OUR HIGHLINE AND EXOTICS UNIT(VEHICLE ABOVE $100,000) 
+   USE JOINS SO THAT WE CAN SEE THE CUSTOMER INFORMATION AND THE VEHICLE INFORMATION. 
+   I WANT THE FIRST AND LAST NAME OF THE CUSTOMERS, THEN I WANT THE YEAR, MAKE, MODEL, 
+   RIM_LEVEL, POWERTRAIN, MILEAGE, COLOR, PRICE. THEN I WANT THE AMOUNT_PURCHASED.*/
+  
+TITLE "CUSTOMERS THAT PURCHASED HIGHLINE AND EXOTICS VEHICLES";
+FOOTNOTE "CONFIDENTIAL REPORT BY ALEX & HERNY";  
+PROC SQL NUMBER;
+
+SELECT FIRST_NAME,
+       LAST_NAME,
+       YEAR, 
+       MAKE, 
+       MODEL, 
+       TRIM_LEVEL, 
+       POWERTRAIN, 
+       MILEAGE, 
+       COLOR, 
+       PRICE,
+       AMOUNT_PURCHASED
+FROM SQ.CUSTOMERS RIGHT JOIN SQ.INVOICE
+     ON CUSTOMERS.CUSTOMER_ID = INVOICE.CUSTOMER_ID 
+     INNER JOIN SQ.VEHICLE ON VEHICLE.STOCK_ID = INVOICE.STOCK_ID
+WHERE PRICE >= 100000
+ORDER BY AMOUNT_PURCHASED DESC;
+
+QUIT;
+
+
+
+
+
+
+
